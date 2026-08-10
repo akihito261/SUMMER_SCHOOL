@@ -1,5 +1,5 @@
 module neuron_instance (
-    input  		clk_i,
+    input  		clk,
     input  		param_select,
     input [4:0] param_num,
     input  		we_i,
@@ -22,7 +22,7 @@ module neuron_instance (
             wire [7:0] new_potential;
 
             neuron_parameters np_inst (
-                .clk_i(clk_i),
+                .clk_i(clk),
                 .en_i(param_select & (param_num == i)),
                 .we_i(we_i),
                 .addr_i(addr_i),
