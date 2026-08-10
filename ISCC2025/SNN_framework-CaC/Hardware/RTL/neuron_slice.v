@@ -52,7 +52,7 @@ module neuron_slice
 
 
     neuron_instance neuron_32 (
-        .clk_i(clk_i),
+        .clk(clk_i),
         .param_select(param_select),
         .param_num(param_num),
         .we_i(we_i),
