@@ -21,7 +21,7 @@ module neuron_core_256x32
     inout vccd1,    // User area 1 digital ground
     `endif
     
-    input  wire clk_i,
+    input  wire clk,
     input  wire rst_i,
     input  wire en_i,
     input  wire we_i,
@@ -53,7 +53,7 @@ module neuron_core_256x32
 
     //choose_weight base on axon number
     choose_weight choose_weight_inst (
-        .clk_i(clk_i),
+        .clk_i(clk),
         .en_i(choose_weight),
         .we_i(we_i),
         .addr_i(addr_i[3:0]),
@@ -64,14 +64,14 @@ module neuron_core_256x32
     );
     
     reg [1:0] weight_type_ff;
-    always @(posedge clk_i) begin
+    always @(posedge clk) begin
         weight_type_ff <= weight_type;
     end
     generate
         genvar i;
         for (i = 0; i < NUM_OF_SLICE; i=i+1) begin: slice_instances
             neuron_slice neuron_slice_inst (
-                .clk_i(clk_i),
+                .clk_i(clk),
                 .rst_i(rst_i),
                 .done_pic_i(done_pic),
                 .weight_type_i(weight_type_ff),
@@ -86,7 +86,7 @@ module neuron_core_256x32
     endgenerate
 
     reg [NUM_OF_SLICE-1:0] slice_ff;
-    always @(posedge clk_i) begin
+    always @(posedge clk) begin
         slice_ff <= slice;
     end
 
